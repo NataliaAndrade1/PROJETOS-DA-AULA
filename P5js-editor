@@ -1,0 +1,101 @@
+//variable to the ball
+let xball = 300;
+let yball = 200;
+let diam = 20;
+let speedballx = 6;
+let speedbally = 6;
+let ray = diam / 2;
+
+//variable in to the player 1
+let xreact1 = 5;
+let yreact1 = 150;
+let wreact1 = 10;
+let hreact1 = 100;
+
+//variable in to the player 2
+let xreact2 = 585;
+let yreact2 = 150;
+let wreact2 = 10;
+let hreact2 = 100;
+let speedrackt2;
+
+//game score
+let splayer1 = 0;
+let splayer2 =0;
+
+//screw sizes
+function setup() {
+  createCanvas (600 , 400)
+}
+// game play
+function draw (){
+  background (199,21,133);
+  showball () ;
+  moveball () ;
+  screwlimited () ;
+  racktplayer1 () ;
+  moverackt1 ();
+  crachracket1 ();
+  racktplayer2 ();
+  moverackt2 ();
+  crachracket2 ();
+  score ();
+}
+//function the game play
+function showball () {
+  circle ( xball, yball, diam);
+}
+function moveball (){
+  xball += speedballx;
+  yball -= speedbally;
+}
+
+function  screwlimited (){
+   if (xball+ ray > width || xball - ray < 0) {
+    speedballx *= -1
+  }
+  if (yball + ray > height|| yball - ray < 0){
+  speedbally *= -1;
+  }
+}
+function racktplayer1 (){
+  rect (xreact1 ,yreact1 ,wreact1 ,hreact1);
+}
+function moverackt1(){
+  if(keyIsDown(UP_ARROW)) {
+    yreact1 -= 10;
+  }
+   if(keyIsDown(DOWN_ARROW)) {
+    yreact1 += 10;  
+   }
+}
+function crachracket1 (){
+  if (xball - ray < xreact1 + wreact1 && yball - ray < yreact1 + hreact1 && yball + ray > yreact1){
+    speedballx *= -1;
+  }
+}
+
+function racktplayer2 (){
+  rect (xreact2 ,yreact2 ,wreact2 ,hreact2);
+}
+function moverackt2 (){
+  speedrackt2 = yball - yreact2 - hreact2 /2 -30;
+  yreact2 += speedrackt2;
+}
+function crachracket2 (){
+  if (xball + ray > xreact2 && yball - ray < yreact2 + hreact2 && yball + ray > yreact2){
+    speedballx *= -1;
+  }
+}
+function score(){
+  fill (255);
+  textSize (30);
+  text (splayer1,270,30);
+  text (splayer2,330,30);
+  if (xball > 590){
+    splayer1 +=1;
+  }
+    if (xball < 10){
+    splayer2 +=1;
+  }
+}
